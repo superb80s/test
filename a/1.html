@@ -1,0 +1,52 @@
+<script>
+function lalala(){
+    var url = 'http://b.a.com/2.php';
+
+    /*$.ajax({ 
+        async: false, 
+        url: url, 
+        type: "post", 
+        dataType: 'jsonp', 
+        //jsonp的值自定义,如果使用jsoncallback,那么服务器端,要返回一个jsoncallback的值对应的对象. 
+        jsonp: 'jsoncallback', 
+        //要传递的参数,没有传参时，也一定要写上 
+        data: null, 
+        timeout: 5000, 
+        //返回Json类型 
+         contentType: "application/json;utf-8", 
+        //服务器段返回的对象包含name,data属性. 
+        success: function (result) { 
+            console.log(result);
+        }, 
+        error: function (jqXHR, textStatus, errorThrown) { 
+            alert(textStatus); 
+        } 
+    }); */
+
+$.ajax({ 
+        async: false, 
+        url: url, 
+        type: "post", 
+        dataType: 'json', 
+        //jsonp的值自定义,如果使用jsoncallback,那么服务器端,要返回一个jsoncallback的值对应的对象. 
+        //要传递的参数,没有传参时，也一定要写上 
+        data: null, 
+        timeout: 5000, 
+        //返回Json类型 
+         contentType: "application/json;utf-8", 
+        //服务器段返回的对象包含name,data属性. 
+        success: function (result) { 
+            console.log(result);
+        }, 
+        error: function (jqXHR, textStatus, errorThrown) { 
+            alert(textStatus); 
+        } 
+    });
+
+}
+
+</script>
+
+
+<script src="http://www.miaoshou.com/statics/js/jquery-1.11.2.min.js"></script>
+<button onclick="lalala()">点击</button>

@@ -1,0 +1,32 @@
+--父进程执行(等待子进程) -> 子进程(等待子子进程) -> 
+times:1
+'pid: 88517
+''parent: 88515
+''wait: 
+
+
+''pid: 0
+''child: 88517
+
+'times:2
+'pid: 88518
+''parent: 88517
+''wait: 
+''pid: 0
+''child: 88518
+''status: 0
+''exitStatus: 0
+
+''status: 0
+''exitStatus: 0
+
+'times:2
+'pid: 88519
+''parent: 88515
+''wait: 
+''pid: 0
+''child: 88519
+''status: 0
+''exitStatus: 0
+
+父进程 ->  
