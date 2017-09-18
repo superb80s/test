@@ -11,8 +11,12 @@ $http_worker->count = 4;
 // 接收到浏览器发送的数据时回复hello world给浏览器
 $http_worker->onMessage = function($connection, $data)
 {
+
+    //var_export($data['get']);
+    
     // 向浏览器发送hello world
-    $connection->send('hello world');
+    //$connection->send('hello world');
+    $connection->send($demo);
 };
 
 // 运行worker

@@ -1,6 +1,150 @@
 <?php
 
 
+
+
+$version = '3.7.6';
+$version = '3.8.6';
+$version = '3.7.16';
+$defaultVersion = '3.7.16';
+if (version_compare($version, $defaultVersion) >= 0) {
+    echo 123;die;
+}
+
+echo 456;die;
+
+
+
+$res = shell_exec($shell);
+
+$pdfFile = '/www/miaoshou/dapp.miaoshouapi.com/protected/runtime/pdf/201709/20170914020019.pdf';
+var_export(is_file($pdfFile));die;
+die;
+
+
+$medicine = [
+    [
+        "medicine_id" => '5008',
+        "name" => '【999】小儿感冒颗粒 6克*10袋',
+        "number" => 1,
+        "price" => 11.5,
+        "recipe_id" => 0,
+        "indication"    => '',
+    ],
+    [
+        "medicine_id" => '1064',
+        "name" => '【伊可新】维生素AD滴剂胶囊型(1岁以上)  30粒',
+        "number" => 1,
+        "price" => 29.5,
+        "recipe_id" => 0,
+        "indication"    => '',
+    ],
+];
+
+var_export(json_encode($medicine, JSON_UNESCAPED_UNICODE));die;
+
+
+$json = '{"name":"tom", "age":"15", "url":"http:\/\/www.baidu.com"}';
+
+echo stripslashes($json);
+
+
+$p = 'hello';
+$colure = function () use ($p) {
+    echo $p;
+};
+
+$colure();die;
+
+function carry()
+{
+    return function () {
+        return function () {
+            return 123;
+        };
+    };
+}
+
+$carry = carry();
+$carry2 = $carry();
+var_export($carry2());die;
+
+
+
+function pass($who)
+{
+    return function ($action) use ($who) {
+        //return $destination($passable);
+        echo "$who" . "---" . $action;
+    };
+}
+
+$pass = pass('jack');
+$pass('say');
+die;
+
+
+class U
+{
+    public $a = 1;
+
+    private $b= 1;
+
+    public function run()
+    {
+        $static = new static;
+        var_export($static);
+    }
+}
+
+$u = new U;
+$u->run();
+die;
+
+
+$a = [1, 2, 3, 4];
+
+print_r($a);
+
+unset($a[2]);
+
+$a = array_values($a);
+print_r($a);
+
+die;
+
+
+class a
+{
+
+    static protected $test = "class a";
+
+    public function staticTest()
+    {
+        echo static::$test; // Results class b
+
+        echo "----";
+
+        echo self::$test; // Results class a
+    }
+}
+
+class b extends a
+{
+
+    static protected $test="class b";
+}
+
+$obj = new b();
+$obj->staticTest();
+
+die;
+
+
+$opcode       = 1 & 0;
+echo $opcode;
+die;
+
 class a
 {
     private $age = 5;

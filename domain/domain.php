@@ -9,13 +9,70 @@
 //arrangement($arr, $num);//进行排列运算
 //var_export(count($res));//输出排列结果
 //die;
+//$data = [];
+for ($i=1; $i<=999999;$i++) {
+    $num = str_pad($i, 6, 0, STR_PAD_LEFT);
+    $num = checkNum($num);
+    if (!$num) {
+        continue;
+    }
+    $data[] = $num;
+
+}
+
+function checkNum($num){
+    $len = strlen($num);
+    $data = [];
+    for ($i = 0; $i < $len; $i++) {
+        if (isset($data[$num[$i]])) {
+            $data[$num[$i]] += $data[$num[$i]];
+        } else {
+            $data[$num[$i]] = 1;
+        }
+    }
+    sort($data);
+    $max = array_pop($data);
+    if ($max >= 2) {
+        return $num;
+    } else {
+        return 0;
+    }
+}
+
+var_dump(count($data));die;
+file_put_contents('list_number6', implode("\n", $data));die;
+
+$files = [
+            "number6aa","number6ab","number6ac","number6ad","number6ae","number6af",
+            "number6ag","number6ah"
+        ];
+
+foreach ($files as $file) {
+    $pid = pcntl_fork();
+
+    if ($pid == -1) {
+         die('could not fork');
+    } elseif ($pid == 0) {
+        $filePath = "./number6/$file";
+        work($filePath);
+        exit; 
+    } elseif ($pid > 0) {
+    }
+}
+
+function work($filePath){
+    echo $filePath . "\n";die;
+    $domain = new Domain();
+    $domain->xxxFromFile($filePath, $log = 'number-6.log');
+}
+die;
 
 $domain = new Domain();
 //$domain->numLetterNum();
-//$domain->number6();
-//$domain->number6FromFile();
-$domain->numberWord('vv');
+//$domain->number5();
+$domain->xxxFromFile('number5aa', $log = 'number-5.log');
 die;
+//$domain->numberWord('vv');
 class Domain
 {
     public $letters = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'];
@@ -24,21 +81,21 @@ class Domain
 
     public $res = [];
 
-    private function setFile($file)
+    private function setLogFile($file)
     {
         $this->file = $file;
     }
 
-    public function number6FromFile()
+    public function xxxFromFile($file, $log = 'h.log')
     {
-        $this->setFile('number-5.log');
+        $this->setLogFile($log);
         $ext = '.com';
 
-        $fp = fopen("./list_number6",'r');
+        $fp = fopen($file,'r');
         while (!feof($fp)) {
             $v = trim(fgets($fp));
             $domain = $v . $ext;
-            echo $domain . "_";
+            //echo $domain . "_";
             $this->curl($domain);
         }
         fclose($fp);
@@ -46,14 +103,14 @@ class Domain
 
     public function number5()
     {
-        $this->setFile('number-5.log');
+        $this->setLogFile('number-5.log');
         $ext = '.com';
         $arr = [9,8,7,6,5,3,2,1,0];
         $num = 5;//所需使用词根的数量
         $this->res = [];
         $this->arrangement($arr, $num);//进行排列运算
         file_put_contents('list_number5', implode("\n", $this->res));die;
-        //echo count($this->res);die;
+        echo count($this->res);die;
         foreach ($this->res as $v) {
             $domain = $v . $ext;
             echo $domain . "_";
@@ -62,12 +119,23 @@ class Domain
     }
     public function number6()
     {
-        $this->setFile('number-6.log');
+        $this->setLogFile('number-6.log');
         $ext = '.com';
-        $arr = [9,8,7,6,5,3,2,1];
+        $arr = [9,8,7,6,5,4,3,2,1];
         $num = 6;//所需使用词根的数量
         $this->res = [];
         $this->arrangement($arr, $num);//进行排列运算
+        $data = [];
+        foreach ($this->res as $v) {
+            if ($v > 499999 && $v < 900000) {
+                $data[] = $v;
+            }
+        }
+
+        file_put_contents('list_number6', implode("\n", $data));die;
+        echo count($data);die;
+
+
         file_put_contents('list_number6', implode("\n", $this->res));die;
         //echo count($this->res);die;
         foreach ($this->res as $v) {
@@ -80,7 +148,7 @@ class Domain
     public function numberWord($word)
     {
         $ext = '.com';
-        $this->setFile("number{$word}.log");
+        $this->setLogFile("number{$word}.log");
         $arr = [9,8,7,6,5,3,2,1,0];
         $num = 2;//所需使用词根的数量
         $res = array(); //结果集
@@ -98,7 +166,7 @@ class Domain
     public function xxWord($word)
     {
         $ext = '.com';
-        $this->setFile("xx{$word}.log");
+        $this->setLogFile("xx{$word}.log");
         $arr = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'];
         $num = 3;//所需使用词根的数量
         $res = array(); //结果集
@@ -116,7 +184,7 @@ class Domain
     public function numLetterNum()
     {
 
-        $this->setFile('num-letter-num.log');
+        $this->setLogFile('num-letter-num.log');
         $ext = '.com';
 
         $sum = 0;
@@ -170,7 +238,7 @@ class Domain
         //var_export(stripos($xmlObj->original, '211')!== false);die;
         if (isset($xmlObj->original) && stripos($xmlObj->original, '210') !== false) {
             file_put_contents($this->file, $domain . "\n", FILE_APPEND);
-            //echo $domain . "_";
+            echo $domain . "_";
             //die;
         }
     }

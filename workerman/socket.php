@@ -18,6 +18,7 @@ $ws_worker->onConnect = function($connection)
 $ws_worker->onMessage = function($connection, $data)
 {
     // Send hello $data
+    echo $data . "\n\r";
     $connection->send('hello ' . $data);
 };
 
